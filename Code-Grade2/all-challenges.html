@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JavaScript Challenges</title>
+    <style>
+        body {
+            margin: 0;
+            background-color: chartreuse;
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+        }
+        button {
+            padding: 15px 25px;
+            margin: 10px;
+            font-size: 16px;
+            cursor: pointer;
+            border: none;
+            border-radius: 5px;
+            background: #007bff;
+            color: white;
+        }
+        button:hover { background: #0056b3; }
+        #output {
+            background: #f8f9fa;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+            min-height: 100px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>JavaScript Challenges</h1>
+        
+        <button onclick="runGradeGenerator()">Grade Generator</button>
+        <button onclick="runSpeedDetector()">Speed Detector</button>
+        <button onclick="runOriginalSpeed()">Original Speed Check</button>
+        <button onclick="runSalaryCalculator()">Salary Calculator</button>
+        <button onclick="clearOutput()">Clear</button>
+        
+        <div id="output"></div>
+    </div>
+
+    <script>
+        function log(message) {
+            document.getElementById('output').innerHTML += message + '<br>';
+        }
+
+        function runGradeGenerator() {
+            const marks = parseInt(prompt("Enter student marks (0-100):"));
+            let grade;
+            if (marks > 79) grade = "A";
+            else if (marks >= 60) grade = "B";
+            else if (marks >= 49) grade = "C";
+            else if (marks >= 40) grade = "D";
+            else grade = "E";
+            log(`<strong>Grade Generator:</strong> Grade: ${grade}`);
+        }
+
+        function runSpeedDetector() {
+            const speed = parseInt(prompt("Enter car speed:"));
+            if (speed < 70) {
+                log(`<strong>Speed Detector:</strong> Ok`);
+            } else {
+                const points = Math.floor((speed - 70) / 5);
+                log(`<strong>Speed Detector:</strong> Points: ${points}`);
+                if (points > 12) {
+                    log(`<strong>Speed Detector:</strong> License suspended`);
+                }
+            }
+        }
+
+        function checkSpeed(speed) {
+            if (speed <= 70) {
+                return "ok";
+            } else {
+                let points = Math.floor((speed - 70));
+                if (points > 12) {
+                    return "License suspended";
+                } else {
+                    return "points: " + points;
+                }
+            }
+        }
+
+        function runOriginalSpeed() {
+            let speed = Number(prompt("Enter car speed (km/h):"));
+            if (isNaN(speed) || speed < 0) {
+                log(`<strong>Original Speed Check:</strong> Please enter a valid speed.`);
+            } else {
+                let result = checkSpeed(speed);
+                log(`<strong>Original Speed Check:</strong> ${result}`);
+            }
+        }
+
+        function runSalaryCalculator() {
+            const basicSalary = parseFloat(prompt("Enter basic salary:"));
+            const benefits = parseFloat(prompt("Enter benefits:"));
+            const grossSalary = basicSalary + benefits;
+
+            let payee = 0;
+            if (grossSalary <= 24000) {
+                payee = grossSalary * 0.1;
+            } else if (grossSalary <= 32333) {
+                payee = 2400 + (grossSalary - 24000) * 0.25;
+            } else if (grossSalary <= 500000) {
+                payee = 4483 + (grossSalary - 32333) * 0.3;
+            } else if (grossSalary <= 800000) {
+                payee = 144783 + (grossSalary - 500000) * 0.325;
+            } else {
+                payee = 242283 + (grossSalary - 800000) * 0.35;
+            }
+
+            let nhif = 0;
+            if (grossSalary <= 5999) nhif = 150;
+            else if (grossSalary <= 7999) nhif = 300;
+            else if (grossSalary <= 11999) nhif = 400;
+            else if (grossSalary <= 14999) nhif = 500;
+            else if (grossSalary <= 19999) nhif = 600;
+            else if (grossSalary <= 24999) nhif = 750;
+            else if (grossSalary <= 29999) nhif = 850;
+            else if (grossSalary <= 34999) nhif = 900;
+            else if (grossSalary <= 39999) nhif = 950;
+            else if (grossSalary <= 44999) nhif = 1000;
+            else if (grossSalary <= 49999) nhif = 1100;
+            else if (grossSalary <= 59999) nhif = 1200;
+            else if (grossSalary <= 69999) nhif = 1300;
+            else if (grossSalary <= 79999) nhif = 1400;
+            else if (grossSalary <= 89999) nhif = 1500;
+            else if (grossSalary <= 99999) nhif = 1600;
+            else nhif = 1700;
+
+            const nssf = Math.min(grossSalary * 0.06, 1080);
+            const netSalary = grossSalary - payee - nhif - nssf;
+
+            log(`<strong>Salary Calculator:</strong>`);
+            log(`Gross Salary: ${grossSalary}`);
+            log(`Payee (Tax): ${payee.toFixed(2)}`);
+            log(`NHIF Deductions: ${nhif}`);
+            log(`NSSF Deductions: ${nssf.toFixed(2)}`);
+            log(`Net Salary: ${netSalary.toFixed(2)}`);
+        }
+
+        function clearOutput() {
+            document.getElementById('output').innerHTML = '';
+        }
+    </script>
+</body>
+</html>
