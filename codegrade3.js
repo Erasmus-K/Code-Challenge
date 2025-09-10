@@ -1,19 +1,20 @@
-function calculateGrade() {
-  let marks = parseInt(document.getElementById("marksInput").value);
-  let result = document.getElementById("result");
-
-  if (marks < 0 || marks > 100 || isNaN(marks)) {
-    result.textContent = "Invalid input! Marks should be between 0 and 100.";
-    result.style.color = "red";
-  } else {
-    let grade;
-    if (marks > 79) grade = "A";
-    else if (marks >= 60) grade = "B";
-    else if (marks >= 49) grade = "C";
-    else if (marks >= 40) grade = "D";
-    else grade = "E";
-
-    result.textContent = `The grade is: ${grade}`;
-    result.style.color = "#1e90ff";
-  }
+function checkSpeed(speed){
+    if (speed <= 70){
+        return "ok"
+    }else {
+        let points = Math.floor((speed - 70) );
+        if (points >12){
+            return "License suspended";
+        }else{
+            return "points: " + points
+        }
+    }
 }
+let speed = Number(prompt("Enter car speed (km/h):"));
+if (isNaN(speed) || speed < 0 ){
+alert("Please enter a valid speed.");
+}else {
+    let result = checkSpeed(speed)
+    alert(result);
+}
+    
